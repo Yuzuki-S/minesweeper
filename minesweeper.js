@@ -1,21 +1,12 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-var board = { 
- cells: [
-   {row:0, col:0, isMine:true, hidden:true},
-   {row:0, col:1, isMine:false, hidden:true},
-   {row:0, col:2, isMine:true, hidden:true},
-   {row:1, col:0, isMine:false, hidden:true},
-   {row:1, col:1, isMine:false, hidden:true},
-   {row:1, col:2, isMine:false, hidden:true},
-   {row:2, col:0, isMine:true, hidden:true},
-   {row:2, col:1, isMine:false, hidden:true},
-   {row:2, col:2, isMine:false, hidden:true}
-  ]
+var board = {
+  cells: []
 }
 
 function startGame () {
+  createBoard(6);
   // Don't remove this function call: it makes the game work!
   for (let index = 0; index < board.cells.length; index++) {
     var number = countSurroundingMines(board.cells[index]);
@@ -38,7 +29,6 @@ function startGame () {
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
 function checkForWin () {
-  
   for (let index =0; index < board.cells.length; index++){
     if (board.cells[index].isMine && !board.cells[index].isMarked){
       return 
@@ -72,5 +62,22 @@ function countSurroundingMines(cell) {
     }
   }
   return count;
+}
+
+function createBoard(size) {
+
+  for(let r = 0; r < size; r++){
+    for(let c = 0; c < size; c++){
+      let randomNum = Math.floor((Math.random() * 10))
+      let thisIsAMine = false;
+      if(randomNum >= 7){
+        thisIsAMine = true;
+      }
+
+      board.cells.push({row: r, col: c, isMine: thisIsAMine, hidden: false })
+      
+    }
+
+  }
 }
 
