@@ -6,29 +6,37 @@ var board = {
 }
 
 function startGame () {
-  createBoard(6);
+  var boardSize = prompt("How big do you want the board (Please input a number from 2 to 6)")
+  createBoard(boardSize);
   // Don't remove this function call: it makes the game work!
   for (let index = 0; index < board.cells.length; index++) {
     var number = countSurroundingMines(board.cells[index]);
-    board.cells[index].surroundMines = number;
+    board.cells[index].surroundingMines = number;
   }
 
   lib.initBoard()
   document.addEventListener("click", checkForWin) 
-   
-  
-  
+  document.addEventListener("click", leftClickSound)
   document.addEventListener("contextmenu", checkForWin)
+  document.addEventListener("contextmenu", rightClickSound)
 }
 
+function leftClickSound(){
+  var audio = document.getElementsByClassName("leftClick")[0];
+  audio.play();
+}
 
-
+function rightClickSound(){
+  var audio = document.getElementsByClassName("rightClick")[0];
+  audio.play();
+}
 
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
 function checkForWin () {
+  
   for (let index =0; index < board.cells.length; index++){
     if (board.cells[index].isMine && !board.cells[index].isMarked){
       return 
@@ -42,6 +50,8 @@ function checkForWin () {
   }
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
+  var audio = document.getElementsByClassName("win")[0];
+  audio.play();
   lib.displayMessage('You win!')
 }
 
@@ -74,10 +84,15 @@ function createBoard(size) {
         thisIsAMine = true;
       }
 
-      board.cells.push({row: r, col: c, isMine: thisIsAMine, hidden: false })
+      board.cells.push({row: r, col: c, isMine: thisIsAMine, hidden: true })
       
     }
 
   }
 }
 
+function restart() {
+  document.getElementsByClassName("board")[0].innerHTML = "";
+  board = { cells: [] }
+  startGame();
+}
