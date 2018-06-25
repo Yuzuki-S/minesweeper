@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', startGame)
 var board = {
   cells: []
 }
+var boardSize = prompt("How big do you want the board (Please input a number from 2 to 6)")
+  createBoard(boardSize);
 
 function startGame () {
-  var boardSize = prompt("How big do you want the board (Please input a number from 2 to 6)")
-  createBoard(boardSize);
+  
   // Don't remove this function call: it makes the game work!
   for (let index = 0; index < board.cells.length; index++) {
     var number = countSurroundingMines(board.cells[index]);
@@ -93,6 +94,8 @@ function createBoard(size) {
 
 function restart() {
   document.getElementsByClassName("board")[0].innerHTML = "";
-  board = { cells: [] }
+  board = { cells: [] };
+  var boardSize = prompt("How big do you want the board (Please input a number from 2 to 6)")
+  createBoard(boardSize);
   startGame();
 }
