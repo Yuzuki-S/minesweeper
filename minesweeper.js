@@ -7,7 +7,10 @@ var board = {
 var boardSize = prompt("How big do you want the board (Please input a number from 2 to 6)")
   createBoard(boardSize);
 
+
+
 function startGame () {
+  if(boardSize){
   
   // Don't remove this function call: it makes the game work!
   for (let index = 0; index < board.cells.length; index++) {
@@ -21,7 +24,7 @@ function startGame () {
   document.addEventListener("contextmenu", checkForWin)
   document.addEventListener("contextmenu", rightClickSound)
 }
-
+}
 function leftClickSound(){
   var audio = document.getElementsByClassName("leftClick")[0];
   audio.play();
